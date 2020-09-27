@@ -1,12 +1,11 @@
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import(GenericAPIView,CreateAPIView)
 from rest_framework.response import Response
-from .serializers import UserSignUpSerializer
+from .serializers import (UserSignUpSerializer,UserLoginSerializer)
 from .models import User
 
 
 
 class UserSignUpAPIView(CreateAPIView):
-    serializer_class = UserSignUpSerializer
 
 
     def post(self,request, *args, **kwargs):
@@ -15,7 +14,8 @@ class UserSignUpAPIView(CreateAPIView):
 
         if serializer.is_valid():
             serializer.save()
-            obj=User.objects.get(email=request.data["email"])
+            obj=User.objects.get(email=request.data["email"])    serializer_class = UserSignUpSerializer
+
 
             response_data={
                 "id":obj.id,
@@ -27,3 +27,27 @@ class UserSignUpAPIView(CreateAPIView):
             return Response(response_data)
         else:
             return Response(serializer.errors)
+
+
+class UserLoginAPIView(GenericAPIView):
+     serializer_class=UserLoginSerializer
+
+     def post(self,request,  *args,  **kwargs):
+         print("Request data:",request.data)
+         serializer = self.get_serializer(data=request.data)
+
+         if serializer.is_valid():
+             obj = serializer.Userval
+
+             response_data = {
+                 "id": obj.id,
+                 "first_name": obj.first_name,
+                 "last_name": obj.last_name,
+                 "email-address": obj.email
+             }
+
+             return Response(response_data)
+         else:
+             return Response(serializer.errors)
+
+
