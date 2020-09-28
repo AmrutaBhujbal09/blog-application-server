@@ -13,7 +13,7 @@ class User(AbstractUser):
 
 
     email=models.EmailField('email_address',unique=True)
-    contact_number=models.TextField(max_length=10,null=True,blank=False)
+    contact_number=models.TextField(max_length=10,null=True)
     description=models.TextField(max_length=60,null=True,blank=False)
     linkedin_url=models.URLField(null=True,blank=False)
     Status_Choice=models.CharField(max_length=10,null=True,blank=False,choices=Status_Choice,default='Active')

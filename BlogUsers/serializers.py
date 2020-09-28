@@ -39,3 +39,16 @@ class UserLoginSerializer(serializers.Serializer):
 
         else:
             raise serializers.ValidationError()
+
+
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "contact_number","description","first_name","last_name","email","password"]
+
+
+
+
+
+
