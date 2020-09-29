@@ -79,6 +79,10 @@ class UpdateUserAPIView(UpdateAPIView):
 
         return Response(serializer.data,status.HTTP_200_OK)
 
+
+
+
+
 class GetUserListView (ListAPIView):
     serializer_class = UserSignUpSerializer
 

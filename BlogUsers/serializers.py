@@ -9,21 +9,19 @@ class UserSignUpSerializer(serializers.ModelSerializer):
                 "Status_Choice"]
 
 
-    def create(self,validated_data):
-        userval=User.objects.create_user(
-            first_name=validated_data.pop('first_name'),
+    """def create(self,validated_data):
+       # userval=User.objects.create_user(
+          #  first_name=validated_data.pop('first_name'),
             last_name=validated_data.pop('last_name'),
             password=validated_data.pop('password'),
             username=validated_data.pop('username'),
             email=validated_data.pop('email'),
-            description=validated_data.pop('description'),
+            description=validated_data.pop('amruta'),
             linkedin_url=validated_data.pop('linkedin_url'),
             contact_number=validated_data.pop('contact_number'),
             Status_Choice=validated_data.pop('Status_Choice')
         )
-        return userval
-
-
+        return userval"""
 
 
 class UserLoginSerializer(serializers.Serializer):
