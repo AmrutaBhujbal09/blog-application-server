@@ -61,13 +61,13 @@ class UpdateUserAPIView(UpdateAPIView):
     def patch(self,request,  *args,  **kwargs):
         instance=self.get_object()
 
-        instance.contact_number= request.data["contact_number"]
+
         instance.description = request.data["description"]
         instance.first_name=request.data["first_name"]
         instance.last_name=request.data["last_name"]
-        instance.email=request.data["email"]
-        instance.password=request.data["password"]
-
+        instance.contact_number = request.data['contact_number']
+        instance.email = request.data['email']
+        instance.linkedin_url = request.data['linkedin_url']
 
 
         serializer = self.get_serializer(instance,data=request.data)
