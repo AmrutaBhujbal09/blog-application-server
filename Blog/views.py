@@ -3,6 +3,9 @@ from rest_framework.generics import (GenericAPIView,CreateAPIView,ListAPIView,Up
 from .serializers import (Blogserializer,UpdatBlogStatusSerializer)
 from rest_framework.response import Response
 from .models import BLOG
+
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter,OrderingFilter
 # Create your views here.
 from BlogUsers.models import  User
 class CreateBlogAPIView(CreateAPIView):
@@ -154,6 +157,12 @@ class getBlogDetailsAPIView(ListAPIView):
 
 
 
+class searchAPI(ListAPIView):
+    serializer_class = Blogserializer
+    queryset = BLOG.objects.all()
+    filter_backends = (DjangoFilterBackend, OrderingFilter, SearchFilter)
+    ordering_fields = ('PUBLISHED','contents')
+    search_fields = ('title','contents')
 
 
 
