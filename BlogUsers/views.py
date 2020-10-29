@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.generics import(GenericAPIView,CreateAPIView,UpdateAPIView,ListAPIView)
+from rest_framework.generics import(GenericAPIView,CreateAPIView,UpdateAPIView,ListAPIView,DestroyAPIView)
 from rest_framework.response import Response
 from .serializers import (UserSignUpSerializer,UserLoginSerializer,UpdateUserSerializer)
 from .models import User
@@ -11,10 +11,10 @@ class UserSignUpAPIView(CreateAPIView):
 
     def post(self,request, *args, **kwargs):
         print("REQUEST_DATA",request.data)
-        serializer=self.get_serializer(data=request.data)
+        serialize=self.get_serializer(data=request.data)
 
-        if serializer.is_valid():
-            serializer.save()
+        if serialize.is_valid():
+            serialize.save()
             obj=User.objects.get(email=request.data["email"])
 
             response_data={
@@ -26,7 +26,7 @@ class UserSignUpAPIView(CreateAPIView):
 
             return Response(response_data)
         else:
-            return Response(serializer.errors)
+            return Response(serialize.errors)
 
 
 class UserLoginAPIView(GenericAPIView):
@@ -43,7 +43,7 @@ class UserLoginAPIView(GenericAPIView):
                  "id": obj.id,
                  "first_name": obj.first_name,
                  "last_name": obj.last_name,
-                 "email-address": obj.email
+                 "email-AAddress": obj.email
              }
 
              return Response(response_data)
@@ -84,8 +84,7 @@ class UpdateUserAPIView(UpdateAPIView):
 
 
 class GetUserListView (ListAPIView):
-    serializer_class = UserSignUpSerializer
-
+    serializer_class = UpdateUserSerializer
 
     def get_queryset(self):
         return User.objects.filter(is_superuser=False)
@@ -95,3 +94,11 @@ class GetUserListView (ListAPIView):
         serializer = super().list(request,*args, **kwargs)
         print("SERIALIZER", request.data)
         return Response(serializer.data, status.HTTP_200_OK)
+
+
+
+class DeleteUserView(DestroyAPIView):
+    def delete(self,request, *args, **kwargs):
+        user_id = self.kwargs["pk"]
+        User.objects.filter(id=user_id).delete()
+        return Response(status.HTTP_204_NO_CONTENT)
