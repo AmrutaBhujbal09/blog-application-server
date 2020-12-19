@@ -124,7 +124,7 @@ class BlogListView(ListAPIView):
 class getBlogDetailsAPIView(ListAPIView):
     serializer_class = Blogserializer
 
-    def get(self, request, *args, **kargs):
+    def get(self, request, *args, **kwargs):
         data = list()
         blog_id = self.kwargs["pk"]
         blog_data = BLOG.objects.filter(id=blog_id)
@@ -160,9 +160,10 @@ class getBlogDetailsAPIView(ListAPIView):
 class searchAPI(ListAPIView):
     serializer_class = Blogserializer
     queryset = BLOG.objects.all()
-    filter_backends = (DjangoFilterBackend, OrderingFilter, SearchFilter)
-    ordering_fields = ('PUBLISHED','contents')
-    search_fields = ('title','contents')
+   # filter_backends = (DjangoFilterBackend, OrderingFilter, SearchFilter)
+    filter_backend = [SearchFilter]
+    #ordering_fields = ('PUBLISHED','contents')
+    search_fields = ['contents']
 
 
 

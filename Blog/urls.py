@@ -6,6 +6,6 @@ urlpatterns=[
     url('PatchBlog/(?P<pk>.+)',UpdateBlogStatusAPIView.as_view()),
     url('getSelfBlogList',SelfBlogListView.as_view()),
     url('getBlogList',BlogListView.as_view()),
-    url('getBlogDetils/(?P<pk>.+)',getBlogDetailsAPIView.as_view()),
+    url('getBlogDetails/(?P<pk>.+)',getBlogDetailsAPIView.as_view()),
     url('search',searchAPI.as_view())
 ]
